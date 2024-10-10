@@ -10,22 +10,18 @@ $(document).ready(function () {
       $('#input').val(''); // Clear the input field
     }
   }
-
   // Add new item on button click
   $('#button').on('click', function () {
     newItem();
   });
-
   // Cross out item on double-click
   $('#list').on('dblclick', 'li', function () {
     $(this).toggleClass('strike'); // Toggle the strike class
   });
-
   // Delete item on button click
   $('#list').on('click', '.crossOutButton', function () {
     $(this).parent().remove(); // Remove the parent list item
   });
-
   // Make the list sortable (drag-and-drop)
   $('#list').sortable(); // Use jQuery UI to make the list sortable
 });
