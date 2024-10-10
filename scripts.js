@@ -1,33 +1,31 @@
 $(document).ready(function () {
-  // Add a new item when the Add button is clicked
-  $('#button').click(function () {
-    let inputValue = $('#input').val(); // Get input value
-
-    if (inputValue === '') {
-      alert('You must write something!'); // Alert if input is empty
-    } else {
-      let li = $('<li></li>').text(inputValue); // Create a new list item
-      $('#list').append(li); // Add the new list item to the list
-
-      // Clear the input field after adding the item
-      $('#input').val('');
-
-      // Double click to mark the item as complete
-      li.on('dblclick', function () {
-        li.toggleClass('strike'); // Toggle the strike-through class
-      });
-
-      // Add a delete button
-      let deleteButton = $('<crossOutButton></crossOutButton>').text('X');
-      li.append(deleteButton);
-
-      // Delete the list item when clicking the delete button
-      deleteButton.click(function () {
-        li.remove();
-      });
-
-      // Make the list sortable
-      $('#list').sortable();
+  // Function to add a new item
+  function newItem() {
+    let itemText = $('#input').val(); // Get the input value
+    if (itemText) {
+      let li = $('<li></li>').text(itemText); // Create a new list item
+      let deleteButton = $('<button class="crossOutButton">X</button>'); // Create delete button
+      li.append(deleteButton); // Append the delete button to the list item
+      $('#list').append(li); // Append the new list item to the list
+      $('#input').val(''); // Clear the input field
     }
+  }
+
+  // Add new item on button click
+  $('#button').on('click', function () {
+    newItem();
   });
+
+  // Cross out item on double-click
+  $('#list').on('dblclick', 'li', function () {
+    $(this).toggleClass('strike'); // Toggle the strike class
+  });
+
+  // Delete item on button click
+  $('#list').on('click', '.crossOutButton', function () {
+    $(this).parent().remove(); // Remove the parent list item
+  });
+
+  // Make the list sortable (drag-and-drop)
+  $('#list').sortable(); // Use jQuery UI to make the list sortable
 });
