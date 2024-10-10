@@ -1,35 +1,33 @@
 $(document).ready(function () {
-  // Function to add a new item
-  $('#button').on('click', function () {
-    let newItem = $('#input').val();
-    if (newItem !== '') {
-      // Append new item with delete button
-      $('#list').append(
-        '<li>' + newItem + ' <button class="delete">X</button></li>'
-      );
-      $('#input').val(''); // Clear the input field
+  // Add a new item when the Add button is clicked
+  $('#button').click(function () {
+    let inputValue = $('#input').val(); // Get input value
+
+    if (inputValue === '') {
+      alert('You must write something!'); // Alert if input is empty
+    } else {
+      let li = $('<li></li>').text(inputValue); // Create a new list item
+      $('#list').append(li); // Add the new list item to the list
+
+      // Clear the input field after adding the item
+      $('#input').val('');
+
+      // Double click to mark the item as complete
+      li.on('dblclick', function () {
+        li.toggleClass('strike'); // Toggle the strike-through class
+      });
+
+      // Add a delete button
+      let deleteButton = $('<crossOutButton></crossOutButton>').text('X');
+      li.append(deleteButton);
+
+      // Delete the list item when clicking the delete button
+      deleteButton.click(function () {
+        li.remove();
+      });
+
+      // Make the list sortable
+      $('#list').sortable();
     }
   });
-
-  // Mark an item as completed by double-clicking it
-  $('#list').on('dblclick', 'li', function () {
-    $(this).toggleClass('strike');
-  });
-
-  // Delete an item by clicking on the delete button
-  $('#list').on('click', '.delete', function () {
-    $(this).parent().remove(); // Remove the parent <li> element
-  });
-
-  // Show delete button on hover
-  $('#list').on('mouseenter', 'li', function () {
-    $(this).find('.delete').show();
-  });
-
-  $('#list').on('mouseleave', 'li', function () {
-    $(this).find('.delete').hide();
-  });
-
-  // Make the list sortable (reorderable)
-  $('#list').sortable();
 });
