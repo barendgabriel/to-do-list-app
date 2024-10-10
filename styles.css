@@ -30,10 +30,10 @@ input {
   text-align: center;
   margin-top: 2px;
   padding: 5px 15px;
+  cursor: pointer;
 }
 
 #button:hover {
-  cursor: pointer;
   opacity: 0.8;
 }
 
@@ -62,7 +62,7 @@ li:hover {
   display: none;
 }
 
-li > crossOutButton {
+.crossOutButton {
   background: none;
   border: none;
   float: right;
