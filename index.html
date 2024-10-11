@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width" />
     <title>To-Do List App</title>
     <link href="styles.css" rel="stylesheet" type="text/css" />
+
+    <!-- jQuery and jQuery UI -->
     <script
       src="https://code.jquery.com/jquery-3.5.1.js"
       integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
@@ -15,7 +17,91 @@
       integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
       crossorigin="anonymous"
     ></script>
-    <script src="script.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        // Make the list sortable (drag-and-drop)
+        $('#list').sortable();
+
+        // Adding a new item to the list
+        $('#button').click(function () {
+          var newItem = $('#input').val().trim();
+          if (newItem) {
+            $('#list').append(
+              '<li>' + newItem + ' <span class="delete">X</span></li>'
+            );
+            $('#input').val(''); // Clear the input field after adding
+          }
+        });
+
+        // Allow for double-click to mark an item as done (strikethrough)
+        $('#list').on('dblclick', 'li', function () {
+          $(this).toggleClass('completed'); // Add a CSS class for completed items
+        });
+
+        // Remove item when 'X' is clicked
+        $('#list').on('click', '.delete', function () {
+          $(this).parent().remove(); // Remove the parent <li> element
+        });
+      });
+    </script>
+
+    <style>
+      /* Some quick inline styles to make it functional without styles.css */
+      .container {
+        max-width: 400px;
+        margin: auto;
+        text-align: center;
+        font-family: Arial, sans-serif;
+      }
+
+      #list {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      #list li {
+        padding: 8px;
+        background: #f9f9f9;
+        border: 1px solid #ddd;
+        margin-bottom: 4px;
+        position: relative;
+        cursor: move;
+      }
+
+      #list li .delete {
+        position: absolute;
+        right: 10px;
+        cursor: pointer;
+        color: red;
+      }
+
+      #list li.completed {
+        text-decoration: line-through;
+        color: grey;
+      }
+
+      #button {
+        display: inline-block;
+        padding: 8px 12px;
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+        margin-top: 10px;
+        border-radius: 4px;
+      }
+
+      #button:hover {
+        background-color: #0056b3;
+      }
+
+      #input {
+        padding: 8px;
+        width: 70%;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+    </style>
   </head>
 
   <body>
