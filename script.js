@@ -29,6 +29,8 @@ $(document).ready(function () {
     $(this).parent().remove(); // Remove the parent list item
   });
 
-  // Make the list sortable (drag-and-drop)
-  $('#list').sortable(); // Use jQuery UI to make the list sortable
-});
+  $(document).ready(function() {
+    // Make the list sortable (drag-and-drop)
+    $('#list').sortable(); // Use jQuery UI to make the list sortable
+  });
+
